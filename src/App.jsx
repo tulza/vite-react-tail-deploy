@@ -1,12 +1,12 @@
 import { useState } from "react";
 import "./style/styles.css";
+import "./style/fonts.css";
+import Template from "./Components/Template";
 
 function App() {
   return (
     <>
-      <div className="flex justify-center align-middle">
-        <h1> thisa template</h1>
-      </div>
+      <Template />
     </>
   );
 }

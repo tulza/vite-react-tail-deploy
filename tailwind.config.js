@@ -3,7 +3,12 @@ export default {
   content: ["./src/**/*.{js,jsx,ts,tsx}", "./index.html"],
 
   theme: {
-    extend: {},
+    extend: {
+      colors: {},
+      screens: {},
+      fontFamily: {},
+      transitionProperty: {},
+    },
   },
   plugins: [],
 };
