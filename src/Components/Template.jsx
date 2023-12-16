@@ -1,31 +1,60 @@
 import { motion } from "framer-motion";
 import React, { Fragment, useEffect, useState } from "react";
+import InputRange from "./InputRange";
 
 const Template = () => {
   const [rotate, setRotate] = useState(0);
-  useEffect(() => {
-    console.log(rotate);
-  }, [rotate]);
+  const [x, setx] = useState(0);
+  const [y, sety] = useState(0);
+
+  const HandleRandom = () => {
+    const chaos = 1000;
+    setRotate(parseInt(Math.random() * 2 * chaos - chaos));
+    setx(parseInt(Math.random() * 2 * chaos - chaos));
+    sety(parseInt(Math.random() * 2 * chaos - chaos));
+  };
+
+  setTimeout(() => {
+    HandleRandom();
+  }, 100);
+
   return (
     <Fragment>
       <div className="flex flex-col justify-center text-white gap-4">
         <motion.div
-          animate={{ rotate }}
+          animate={{
+            rotate,
+            x,
+            y,
+          }}
+          transition={{
+            duration: 0.1,
+          }}
           className="radical-limination-circle outline-dashed w-[200px]  outline-white flex justify-center items-center aspect-square text-white p-8 rounded-full"
         >
           <h1 className="text-5xl">:3</h1>
         </motion.div>
-        <input
-          className="mx-5"
-          type="range"
-          min={-180}
-          max={180}
-          value={rotate}
-          onChange={(e) => {
-            setRotate(parseFloat(e.target.value) || 0);
+        <InputRange value={rotate} set={setRotate} />
+        <InputRange value={x} set={setx} />
+        <InputRange value={y} set={sety} />
+        <button
+          className="bg-secondary px-4 py-2 rounded inline-block"
+          onClick={() => {
+            setRotate(0);
+            setx(0);
+            sety(0);
           }}
-        />
-        <p className="text-xl font-bold text-center">{rotate}</p>
+        >
+          Reset
+        </button>
+        <button
+          className="bg-secondary px-4 py-2 rounded inline-block"
+          onClick={() => {
+            HandleRandom();
+          }}
+        >
+          Random
+        </button>
       </div>
     </Fragment>
   );
