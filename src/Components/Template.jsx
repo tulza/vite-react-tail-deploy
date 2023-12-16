@@ -1,22 +1,28 @@
 import { motion } from "framer-motion";
 import React, { Fragment, useEffect, useState } from "react";
 import InputRange from "./InputRange";
+import clsx from "clsx";
 
 const Template = () => {
   const [rotate, setRotate] = useState(0);
   const [x, setx] = useState(0);
   const [y, sety] = useState(0);
+  const [enbRandom, setEnbRandom] = useState(false);
 
   const HandleRandom = () => {
-    const chaos = 1000;
+    const chaos = 1500;
     setRotate(parseInt(Math.random() * 2 * chaos - chaos));
     setx(parseInt(Math.random() * 2 * chaos - chaos));
     sety(parseInt(Math.random() * 2 * chaos - chaos));
   };
 
-  setTimeout(() => {
-    HandleRandom();
-  }, 100);
+  // randomised pos and rotation of :3
+  const timeoutId = (() => {
+    if (!enbRandom) return;
+    setTimeout(() => {
+      HandleRandom();
+    }, 100);
+  })();
 
   return (
     <Fragment>
@@ -54,6 +60,17 @@ const Template = () => {
           }}
         >
           Random
+        </button>
+        <button
+          className={clsx(
+            " px-4 py-2 rounded inline-block",
+            enbRandom ? "bg-secondary" : "bg-red-500"
+          )}
+          onClick={() => {
+            setEnbRandom(!enbRandom);
+          }}
+        >
+          Enable random {enbRandom ? "On" : "Off"}
         </button>
       </div>
     </Fragment>
